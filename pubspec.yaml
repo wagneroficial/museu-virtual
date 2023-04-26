@@ -69,6 +69,8 @@ flutter:
     - imagens/galeria.png
     - imagens/avaliar.png
     - imagens/fundo.png
+    - imagens/historico.png
+    - imagens/menu.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
