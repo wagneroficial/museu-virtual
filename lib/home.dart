@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:museu/componentes_home/menu_avaliar.dart';
-import 'package:museu/componentes_home/menu_galeria.dart';
-import 'package:museu/componentes_home/menu_patrimonio.dart';
-import 'componentes_home/menu_acervo.dart';
-import 'componentes_home/menu_historico.dart';
+import 'package:museu/componentes/componentes_home/menu_avaliar.dart';
+import 'package:museu/componentes/componentes_home/menu_quizz.dart';
+import 'package:museu/componentes/componentes_home/menu_viagem3D.dart';
+import 'componentes/componentes_home/menu_visita_60.dart';
+import 'componentes/componentes_home/menu_historico.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -34,11 +34,11 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color(0xFF001540),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("imagens/fundo.png"), fit: BoxFit.fill)),
         width: double.infinity,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        child: const Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Historico(),
           Acervo(),
           Patrimonio(),
