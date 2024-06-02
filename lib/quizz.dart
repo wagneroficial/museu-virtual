@@ -179,67 +179,53 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
         backgroundColor: const Color(0xFF001540),
       ),
-      body: Stack(
-        children: [
-          // Imagem de fundo
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("imagens/fundo2.png"),
-                fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20.0),
+            Text(
+              _questions[_currentQuestionIndex].questionText,
+              style: const TextStyle(fontSize: 24.0),
+              textAlign: TextAlign.center,
+            ),
+            Image.asset(
+              _questions[_currentQuestionIndex].imagePath,
+              height: 200,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 20.0),
+            ..._questions[_currentQuestionIndex].options.asMap().entries.map((entry) {
+              int idx = entry.key;
+              String text = entry.value;
+              return RadioListTile<int>(
+                activeColor: const Color.fromARGB(228, 238, 186, 17),
+                title: Text(text),
+                value: idx,
+                groupValue: _selectedOptionIndex,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedOptionIndex = value;
+                  });
+                },
+              );
+            }).toList(),
+            const SizedBox(height: 20.0),
+            Container(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: _selectedOptionIndex == null ? null : _checkAnswer,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 250, 193, 35),
+                ),
+                child: const Text('Próximo'),
               ),
             ),
-          ),
-          // Conteúdo principal
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20.0),
-                Text(
-                  _questions[_currentQuestionIndex].questionText,
-                  style: const TextStyle(fontSize: 24.0, color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-                Image.asset(
-                  _questions[_currentQuestionIndex].imagePath,
-                  height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(height: 20.0),
-                ..._questions[_currentQuestionIndex].options.asMap().entries.map((entry) {
-                  int idx = entry.key;
-                  String text = entry.value;
-                  return RadioListTile<int>(
-                    activeColor: const Color.fromARGB(228, 238, 186, 17),
-                    title: Text(text, style: const TextStyle(color: Colors.white)),
-                    value: idx,
-                    groupValue: _selectedOptionIndex,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedOptionIndex = value;
-                      });
-                    },
-                  );
-                }).toList(),
-                const SizedBox(height: 20.0),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    onPressed: _selectedOptionIndex == null ? null : _checkAnswer,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 250, 193, 35),
-                    ),
-                    child: const Text('Próximo'),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-              ],
-            ),
-          ),
-        ],
+            const SizedBox(height: 20.0),
+          ],
+        ),
       ),
     );
   }
