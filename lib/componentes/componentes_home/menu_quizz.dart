@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:museu/quizz.dart';
 
-class Galeria extends StatefulWidget {
-  const Galeria({super.key});
+class Quizz extends StatefulWidget {
+  const Quizz({super.key});
 
   @override
-  State<Galeria> createState() => _GaleriaState();
+  State<Quizz> createState() => _GaleriaState();
 }
 
-class _GaleriaState extends State<Galeria> {
+class _GaleriaState extends State<Quizz> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(11.56),
-      ),
-      margin: const EdgeInsets.only(bottom: 25),
-      child: Container(
-        decoration: (BoxDecoration(
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const QuizScreen()),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(11.56),
+        ),
+        margin: const EdgeInsets.only(bottom: 25),
+        child: Container(
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(11.56),
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
@@ -25,10 +33,11 @@ class _GaleriaState extends State<Galeria> {
                 Color(0xFF165300),
                 Color(0xFF009906),
               ],
-            ))),
-        height: 63.82,
-        width: 252.48,
-        child: Row(
+            ),
+          ),
+          height: 63.82,
+          width: 252.48,
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -38,23 +47,25 @@ class _GaleriaState extends State<Galeria> {
                 height: 38,
               ),
               Container(
-              margin: const EdgeInsets.only(right: 115),
-              padding: const EdgeInsets.only(top: 20, left: 15),
-              height: double.infinity,
-              decoration: const BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    width: 3,
+                margin: const EdgeInsets.only(right: 115),
+                padding: const EdgeInsets.only(top: 20, left: 15),
+                height: double.infinity,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      width: 3,
+                    ),
                   ),
                 ),
+                child: const Text(
+                  "Quizz",
+                  style: TextStyle(fontSize: 16.09, color: Colors.white),
+                ),
               ),
-              child: const Text(
-               "Quizz",
-                style: TextStyle(fontSize: 16.09, color: Colors.white),
-              ),
-            ),
-            ]),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -7,4 +7,3 @@ void main() {
     debugShowCheckedModeBanner: false,
   ));
 }
-

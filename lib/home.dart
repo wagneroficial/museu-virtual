@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 5, left: 20, bottom: 5),
+              padding: const EdgeInsets.only(top: 5, left: 20, bottom: 5),
               child: Image.asset(
                 "imagens/logo.png",
                 width: 115,
@@ -34,17 +34,41 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color(0xFF001540),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("imagens/fundo.png"), fit: BoxFit.fill)),
         width: double.infinity,
-        child: const Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Historico(),
-          Acervo(),
-          Patrimonio(),
-          Galeria(),
-          Avaliar()
-        ]),
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("imagens/fundo.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth < 600) {
+              return const SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Historico(),
+                    Acervo(),
+                    Quizz(),
+                    Avaliar(),
+                  ],
+                ),
+              );
+            } else {
+              return const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(child: Historico()),
+                  Expanded(child: Acervo()),
+                  Expanded(child: Quizz()),
+                  Expanded(child: Avaliar()),
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }
