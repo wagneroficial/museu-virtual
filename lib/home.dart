@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
                     Historico(),
                     Acervo(),
                     Patrimonio(),
-                    QuizScreen(),
+                    Quizz(),
                     Avaliar(),
                   ],
                 ),
@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
                   Expanded(child: Historico()),
                   Expanded(child: Acervo()),
                   Expanded(child: Patrimonio()),
-                  Expanded(child: QuizScreen()),
+                  Expanded(child: Quizz()),
                   Expanded(child: Avaliar()),
                 ],
               );

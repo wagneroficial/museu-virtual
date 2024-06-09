@@ -1,260 +1,72 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:museu/quizz.dart';
 
-class QuizScreen extends StatefulWidget {
-  const QuizScreen({Key? key}) : super(key: key);
+class Quizz extends StatefulWidget {
+  const Quizz({super.key});
 
   @override
-  State<QuizScreen> createState() => _QuizScreenState();
+  State<Quizz> createState() => _GaleriaState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
-  int _currentQuestionIndex = 0;
-  int _score = 0;
-  int? _selectedOptionIndex;
-
-  final List<Question> _questions = [
-    Question(
-      questionText: 'Qual o nome dessa Rua do Município de Oriximiná - PA, no ano de 1950?',
-      options: ['Rua Pedro Carlos de Oliveira', 'Rua Barão do Rio Branco', 'Rua 15 de Novembro', 'Rua 7 de Setembro'],
-      correctAnswerIndex: 1,
-      imagePath: 'imagens/barao.jpeg',
-    ),
-    Question(
-      questionText: 'Qual o nome primitivo da Praça Santo Antônio?',
-      options: ['São Sebastião', 'São Benedito', 'Largo da Matriz', 'Largo da Instalação'],
-      correctAnswerIndex: 0,
-      imagePath: 'imagens/praçavelha.jpeg',
-    ),
-    Question(
-      questionText: 'Qual o nome primitivo do Município de Oriximiná - PA?',
-      options: ['Ponta de Uruá Tapera', 'Murá Tapera', 'Freguesia de Santo Antônio de Uruá Tapera', 'Uruá Tapera'],
-      correctAnswerIndex: 2,
-      imagePath: 'imagens/cidade velha.jpeg',
-    ),
-    Question(
-      questionText: 'Identifique qual é o nome desse local muito conhecido na cidade de Oriximiná - PA?',
-      options: ['Barracão de Santa Luzia', 'Cliper de Santo Antônio', 'Barracão do Parque de Exposição', 'Nenhuma das alternativas'],
-      correctAnswerIndex: 1,
-      imagePath: 'imagens/clipSantoAntonio.jpeg',
-    ),
-    Question(
-      questionText: 'Marque respectivamente os nomes dos locais de Oriximiná - PA que estão nas imagens.',
-      options: ['1. Mercado da carne e peixe, 2. Travessa Magalhães Barata e 3. Delegacia', '1. Niagem, 2. Rua 24 de dezembro e 3. Cartório', '1. Mercado Municipal, 2. Travessa Carlos Maria Teixeira e 3. Secretaria Municipal de Assistência Social', 'Nenhuma das alternativas'],
-      correctAnswerIndex: 2,
-      imagePath: 'imagens/LocaisCidade.png',
-    ),
-    Question(
-      questionText: 'Qual manifestação cultural realizada no município é essa?',
-      options: ['Festival de Quadrilhas', 'Folia de São Benedito', 'Cordão de Pássaro', 'Nenhuma das alternativas'],
-      correctAnswerIndex: 2,
-      imagePath: 'imagens/CordaoPassaro.jpeg',
-    ),
-    Question(
-      questionText: 'Em qual ano foi construído o Estádio Municipal de Oriximiná-PA? Que na época se chamava Doutor Picanço Diniz (Bauxitão).',
-      options: ['1977', '1970', '1987', '1997'],
-      correctAnswerIndex: 0,
-      imagePath: 'imagens/Estadio.jpeg',
-    ),
-    Question(
-      questionText: 'Em qual ano o Círio de Santo Antônio, que no início era terrestre passou a ser fluvial?',
-      options: ['1936', '1946', '1945', '1950'],
-      correctAnswerIndex: 1,
-      imagePath: 'imagens/cirioFluvial.jpeg',
-    ),
-    Question(
-      questionText: 'Qual o nome deste Patrimônio Natural registrado no ano de 1899?',
-      options: ['Cachoeira da Pancada', 'Cachoeira do Ventilado', 'Cachoeira do Chuvisco', 'Cachoeira Porteira'],
-      correctAnswerIndex: 3,
-      imagePath: 'imagens/cachoiraPorteira.jpeg',
-    ),
-    Question(
-      questionText: 'Qual o nome do primeiro Prefeito Eleito no Município de Oriximiná-PA, que está na imagem abaixo?',
-      options: ['Pedro Carlos de Oliveira', 'Helvécio Guerreiro', 'Magalhães Barata', 'Gabriel Guerreiro'],
-      correctAnswerIndex: 1,
-      imagePath: 'imagens/cachoiraPorteira.jpeg',
-    ),
-  ];
-
-  void _nextQuestion() {
-    setState(() {
-      if (_currentQuestionIndex + 1 < _questions.length) {
-        _currentQuestionIndex++;
-        _selectedOptionIndex = null;
-      } else {
-        _showResultModal();
-      }
-    });
-  }
-
-  void _showResultModal() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Resultado do Quiz'),
-          content: Text('Você acertou $_score/${_questions.length}'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Fechar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _showFeedbackModal(bool isCorrect) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Stack(
-          children: [
-            Positioned(
-              top: 50.0, // Ajuste a posição superior conforme necessário
-              left: 0,
-              right: 0,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: AlertDialog(
-                      title: isCorrect
-                          ? const Text('Parabéns você acertou!')
-                          : const Text('Poxa infelizmente você errou'),
-                      content: Icon(
-                        isCorrect ? Icons.check_circle : Icons.cancel,
-                        color: isCorrect ? Colors.green : Colors.red,
-                        size: 48.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-
-    Timer(const Duration(seconds: 2), () {
-      Navigator.of(context).pop(); // Fecha o modal de feedback
-      _nextQuestion(); // Vai para a próxima pergunta
-    });
-  }
-
-  void _checkAnswer() {
-    if (_selectedOptionIndex == null) return;
-
-    bool isCorrect =
-        _selectedOptionIndex == _questions[_currentQuestionIndex].correctAnswerIndex;
-    if (isCorrect) {
-      _score++;
-    }
-    _showFeedbackModal(isCorrect);
-  }
-
+class _GaleriaState extends State<Quizz> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5, left: 20, bottom: 5),
-              child: Image.asset(
-                "imagens/logo.png",
-                width: 115,
-                height: 40.16,
-              ),
-            ),
-            Image.asset("imagens/menu.png")
-          ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const QuizScreen()),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(11.56),
         ),
-        backgroundColor: const Color(0xFF001540),
-      ),
-      body: Stack(
-        children: [
-          // Imagem de fundo
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("imagens/fundo2.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          // Conteúdo principal
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20.0),
-                Text(
-                  _questions[_currentQuestionIndex].questionText,
-                  style: const TextStyle(fontSize: 24.0, color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-                Image.asset(
-                  _questions[_currentQuestionIndex].imagePath,
-                  height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(height: 20.0),
-                ..._questions[_currentQuestionIndex].options.asMap().entries.map((entry) {
-                  int idx = entry.key;
-                  String text = entry.value;
-                  return RadioListTile<int>(
-                    activeColor: const Color.fromARGB(228, 238, 186, 17),
-                    title: Text(text, style: const TextStyle(color: Colors.white)),
-                    value: idx,
-                    groupValue: _selectedOptionIndex,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedOptionIndex = value;
-                      });
-                    },
-                  );
-                }).toList(),
-                const SizedBox(height: 20.0),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    onPressed: _selectedOptionIndex == null ? null : _checkAnswer,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 250, 193, 35),
-                    ),
-                    child: const Text('Próximo'),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
+        margin: const EdgeInsets.only(bottom: 25),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(11.56),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF165300),
+                Color(0xFF009906),
               ],
             ),
           ),
-        ],
+          height: 63.82,
+          width: 252.48,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                "imagens/quizz.png",
+                width: 38,
+                height: 38,
+              ),
+              Container(
+                margin: const EdgeInsets.only(right: 115),
+                padding: const EdgeInsets.only(top: 20, left: 15),
+                height: double.infinity,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      width: 3,
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  "Quizz",
+                  style: TextStyle(fontSize: 16.09, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
-}
-
-class Question {
-  final String questionText;
-  final List<String> options;
-  final int correctAnswerIndex;
-  final String imagePath;
-
-  Question({
-    required this.questionText,
-    required this.options,
-    required this.correctAnswerIndex,
-    required this.imagePath,
-  });
 }
