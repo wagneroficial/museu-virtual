@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:museu/componentes/componentes_home/menu_avaliar.dart';
 import 'package:museu/componentes/componentes_home/menu_quizz.dart';
-import 'package:museu/componentes/componentes_home/menu_viagem3D.dart';
 import 'componentes/componentes_home/menu_visita_60.dart';
 import 'componentes/componentes_home/menu_historico.dart';
 
@@ -42,32 +41,39 @@ class _HomeState extends State<Home> {
             fit: BoxFit.cover,
           ),
         ),
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth < 600) {
-              return const SingleChildScrollView(
-                child: Column(
+        child: Center(
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              if (constraints.maxWidth < 600) {
+                return const SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Historico(),
+                        Acervo(),
+                        Quizz(),
+                        Avaliar(),
+                        SizedBox(height: 90,)
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Historico(),
-                    Acervo(),
-                    Quizz(),
-                    Avaliar(),
+                    Expanded(child: Historico()),
+                    Expanded(child: Acervo()),
+                    Expanded(child: Quizz()),
+                    Expanded(child: Avaliar()),
                   ],
-                ),
-              );
-            } else {
-              return const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(child: Historico()),
-                  Expanded(child: Acervo()),
-                  Expanded(child: Quizz()),
-                  Expanded(child: Avaliar()),
-                ],
-              );
-            }
-          },
+                );
+              }
+            },
+          ),
         ),
       ),
     );
