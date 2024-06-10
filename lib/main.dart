@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'package:museu/abertura.dart';
+
 
 void main() {
-  runApp(const MaterialApp(
-    home: Home(),
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SplashScreen(),
+       debugShowCheckedModeBanner: false,
+    );
+  }
 }
