@@ -15,69 +15,115 @@ class _QuizScreenState extends State<QuizScreen> {
   int _score = 0;
   int? _selectedOptionIndex;
 
- final List<Question> _questions = [
+  final List<Question> _questions = [
     Question(
-      questionText: 'Qual o nome dessa Rua do Município de Oriximiná - PA, no ano de 1950?',
-      options: ['Rua Pedro Carlos de Oliveira', 'Rua Barão do Rio Branco', 'Rua 15 de Novembro', 'Rua 7 de Setembro'],
+      questionText:
+          'Qual o nome dessa Rua do Município de Oriximiná - PA, no ano de 1950?',
+      options: [
+        'Rua Pedro Carlos de Oliveira',
+        'Rua Barão do Rio Branco',
+        'Rua 15 de Novembro',
+        'Rua 7 de Setembro'
+      ],
       correctAnswerIndex: 1,
       imagePath: 'imagens/barao.jpeg',
     ),
     Question(
       questionText: 'Qual o nome primitivo da Praça Santo Antônio?',
-      options: ['São Sebastião', 'São Benedito', 'Largo da Matriz', 'Largo da Instalação'],
+      options: [
+        'São Sebastião',
+        'São Benedito',
+        'Largo da Matriz',
+        'Largo da Instalação'
+      ],
       correctAnswerIndex: 0,
       imagePath: 'imagens/praçavelha.jpeg',
     ),
     Question(
       questionText: 'Qual o nome primitivo do Município de Oriximiná - PA?',
-      options: ['Ponta de Uruá Tapera', 'Murá Tapera', 'Freguesia de Santo Antônio de Uruá Tapera', 'Uruá Tapera'],
+      options: [
+        'Ponta de Uruá Tapera',
+        'Murá Tapera',
+        'Freguesia de Santo Antônio de Uruá Tapera',
+        'Uruá Tapera'
+      ],
       correctAnswerIndex: 2,
       imagePath: 'imagens/cidade velha.jpeg',
     ),
     Question(
-      questionText: 'Identifique qual é o nome desse local muito conhecido na cidade de Oriximiná - PA?',
-      options: ['Barracão de Santa Luzia', 'Cliper de Santo Antônio', 'Barracão do Parque de Exposição', 'Nenhuma das alternativas'],
+      questionText:
+          'Identifique qual é o nome desse local muito conhecido na cidade de Oriximiná - PA?',
+      options: [
+        'Barracão de Santa Luzia',
+        'Cliper de Santo Antônio',
+        'Barracão do Parque de Exposição',
+        'Nenhuma das alternativas'
+      ],
       correctAnswerIndex: 1,
       imagePath: 'imagens/clipSantoAntonio.jpeg',
     ),
     Question(
-      questionText: 'Marque respectivamente os nomes dos locais de Oriximiná - PA que estão nas imagens.',
-      options: ['1. Mercado da carne e peixe, 2. Travessa Magalhães Barata e 3. Delegacia', '1. Niagem, 2. Rua 24 de dezembro e 3. Cartório', '1. Mercado Municipal, 2. Travessa Carlos Maria Teixeira e 3. Secretaria Municipal de Assistência Social', 'Nenhuma das alternativas'],
+      questionText:
+          'Marque respectivamente os nomes dos locais de Oriximiná - PA que estão nas imagens.',
+      options: [
+        '1. Mercado da carne e peixe, 2. Travessa Magalhães Barata e 3. Delegacia',
+        '1. Niagem, 2. Rua 24 de dezembro e 3. Cartório',
+        '1. Mercado Municipal, 2. Travessa Carlos Maria Teixeira e 3. Secretaria Municipal de Assistência Social',
+        'Nenhuma das alternativas'
+      ],
       correctAnswerIndex: 2,
       imagePath: 'imagens/LocaisCidade.png',
     ),
     Question(
       questionText: 'Qual manifestação cultural realizada no município é essa?',
-      options: ['Festival de Quadrilhas', 'Folia de São Benedito', 'Cordão de Pássaro', 'Nenhuma das alternativas'],
+      options: [
+        'Festival de Quadrilhas',
+        'Folia de São Benedito',
+        'Cordão de Pássaro',
+        'Nenhuma das alternativas'
+      ],
       correctAnswerIndex: 2,
       imagePath: 'imagens/CordaoPassaro.jpeg',
     ),
     Question(
-      questionText: 'Em qual ano foi construído o Estádio Municipal de Oriximiná-PA? Que na época se chamava Doutor Picanço Diniz (Bauxitão).',
+      questionText:
+          'Em qual ano foi construído o Estádio Municipal de Oriximiná-PA? Que na época se chamava Doutor Picanço Diniz (Bauxitão).',
       options: ['1977', '1970', '1987', '1997'],
       correctAnswerIndex: 0,
       imagePath: 'imagens/Estadio.jpeg',
     ),
     Question(
-      questionText: 'Em qual ano o Círio de Santo Antônio, que no início era terrestre passou a ser fluvial?',
+      questionText:
+          'Em qual ano o Círio de Santo Antônio, que no início era terrestre passou a ser fluvial?',
       options: ['1936', '1946', '1945', '1950'],
       correctAnswerIndex: 1,
       imagePath: 'imagens/cirioFluvial.jpeg',
     ),
     Question(
-      questionText: 'Qual o nome deste Patrimônio Natural registrado no ano de 1899?',
-      options: ['Cachoeira da Pancada', 'Cachoeira do Ventilado', 'Cachoeira do Chuvisco', 'Cachoeira Porteira'],
+      questionText:
+          'Qual o nome deste Patrimônio Natural registrado no ano de 1899?',
+      options: [
+        'Cachoeira da Pancada',
+        'Cachoeira do Ventilado',
+        'Cachoeira do Chuvisco',
+        'Cachoeira Porteira'
+      ],
       correctAnswerIndex: 3,
       imagePath: 'imagens/cachoiraPorteira.jpeg',
     ),
     Question(
-      questionText: 'Qual o nome do primeiro Prefeito Eleito no Município de Oriximiná-PA, que está na imagem abaixo?',
-      options: ['Pedro Carlos de Oliveira', 'Helvécio Guerreiro', 'Magalhães Barata', 'Gabriel Guerreiro'],
+      questionText:
+          'Qual o nome do primeiro Prefeito Eleito no Município de Oriximiná-PA, que está na imagem abaixo?',
+      options: [
+        'Pedro Carlos de Oliveira',
+        'Helvécio Guerreiro',
+        'Magalhães Barata',
+        'Gabriel Guerreiro'
+      ],
       correctAnswerIndex: 1,
       imagePath: 'imagens/helvecio.png',
     ),
   ];
-
 
   void _nextQuestion() {
     setState(() {
@@ -150,15 +196,16 @@ class _QuizScreenState extends State<QuizScreen> {
     );
 
     Timer(const Duration(seconds: 2), () {
-      Navigator.of(context).pop(); // Fecha o modal de feedback
-      _nextQuestion(); // Vai para a próxima pergunta
+      Navigator.of(context).pop();
+      _nextQuestion();
     });
   }
 
   void _checkAnswer() {
     if (_selectedOptionIndex == null) return;
 
-    bool isCorrect = _selectedOptionIndex == _questions[_currentQuestionIndex].correctAnswerIndex;
+    bool isCorrect = _selectedOptionIndex ==
+        _questions[_currentQuestionIndex].correctAnswerIndex;
     if (isCorrect) {
       _score++;
     }
@@ -190,6 +237,7 @@ class _QuizScreenState extends State<QuizScreen> {
           ],
         ),
         backgroundColor: const Color(0xFF001540),
+        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
@@ -204,13 +252,32 @@ class _QuizScreenState extends State<QuizScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: 20,),
+                Row(
+                  children: [
+                    Image.asset(
+                      "imagens/quizzLogo.png",
+                      width: 41,
+                      height: 38,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      "Questão ${_currentQuestionIndex + 1}",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF001540),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 20.0),
                 Text(
                   _questions[_currentQuestionIndex].questionText,
                   style: const TextStyle(
-                    fontSize: 24.0,
-                    color: Color(0xFF001540),
-                  ),
+                      fontSize: 18,
+                      color: Color(0xFF001540),
+                      fontWeight: FontWeight.w800),
                   textAlign: TextAlign.center,
                 ),
                 Image.asset(
@@ -220,14 +287,21 @@ class _QuizScreenState extends State<QuizScreen> {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 20.0),
-                ..._questions[_currentQuestionIndex].options.asMap().entries.map((entry) {
+                ..._questions[_currentQuestionIndex]
+                    .options
+                    .asMap()
+                    .entries
+                    .map((entry) {
                   int idx = entry.key;
                   String text = entry.value;
                   return RadioListTile<int>(
                     activeColor: const Color.fromARGB(228, 238, 186, 17),
                     title: Text(
                       text,
-                      style: const TextStyle(color: Color(0xFF001540)),
+                      style: const TextStyle(
+                          color: Color(0xFF001540),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
                     ),
                     value: idx,
                     groupValue: _selectedOptionIndex,
@@ -242,7 +316,8 @@ class _QuizScreenState extends State<QuizScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
-                    onPressed: _selectedOptionIndex == null ? null : _checkAnswer,
+                    onPressed:
+                        _selectedOptionIndex == null ? null : _checkAnswer,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 250, 193, 35),
                     ),

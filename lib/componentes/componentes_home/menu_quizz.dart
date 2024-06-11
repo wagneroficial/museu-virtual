@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:museu/quizz.dart';
+import 'package:museu/quizzAbertura.dart';
 
 class Quizz extends StatefulWidget {
   const Quizz({super.key});
 
   @override
-  State<Quizz> createState() => _GaleriaState();
+  State<Quizz> createState() => _QuizzState();
 }
 
-class _GaleriaState extends State<Quizz> {
+class _QuizzState extends State<Quizz> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const QuizScreen()),
+          MaterialPageRoute(builder: (context) => const QuizAbertura()),
         );
       },
       child: Card(
