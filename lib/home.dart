@@ -31,6 +31,7 @@ class _HomeState extends State<Home> {
           ],
         ),
         backgroundColor: const Color(0xFF001540),
+         automaticallyImplyLeading: false,
       ),
       body: Container(
         width: double.infinity,

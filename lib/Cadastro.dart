@@ -22,6 +22,7 @@ class CadastroScreen extends StatelessWidget {
           ],
         ),
         backgroundColor: const Color(0xFF001540),
+         automaticallyImplyLeading: false,
       ),
       body: Container(
         width: double.infinity,

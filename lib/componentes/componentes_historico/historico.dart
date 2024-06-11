@@ -29,6 +29,7 @@ class _HistoricoState extends State<HistoricoMunicipio> {
           ],
         ),
         backgroundColor: const Color(0xFF001540),
+         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Container(
