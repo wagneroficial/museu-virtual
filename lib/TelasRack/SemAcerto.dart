@@ -11,6 +11,30 @@ class Semacerto extends StatefulWidget {
 }
 
 class _SemacertoState extends State<Semacerto> {
+  String getResultadoTexto() {
+    if (widget.acertos <= 2) {
+      return 'INFELIZMENTE NÃO FOI DESSA VEZ!\nMas você pode tentar o Quizz novamente!';
+    } else if (widget.acertos <= 4) {
+      return 'Parabéns, você ganhou troféu de bronze!\nVocê tem um bom conhecimento sobre a história de Oriximiná - PA!';
+    } else if (widget.acertos <= 8) {
+      return 'Parabéns, você ganhou troféu de prata!\nVocê é um ótimo estudante sobre a história de Oriximiná - PA!';
+    } else {
+      return 'Parabéns, você ganhou troféu de ouro!\nVocê é um grande historiador e sabe tudo sobre a cidade de Oriximiná - PA!';
+    }
+  }
+
+  String getImagemTrofeu() {
+    if (widget.acertos <= 2) {
+      return 'imagens/game_over.png';
+    } else if (widget.acertos <= 4) {
+      return 'imagens/trofeu_bronze.png';
+    } else if (widget.acertos <= 8) {
+      return 'imagens/trofeu_prata.png';
+    } else {
+      return 'imagens/trofeu_ouro.png';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +54,7 @@ class _SemacertoState extends State<Semacerto> {
           ],
         ),
         backgroundColor: const Color(0xFF001540),
+         automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Padding(
@@ -45,23 +70,17 @@ class _SemacertoState extends State<Semacerto> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'INFELIZMENTE NÃO FOI DESSA VEZ!',
+              Text(
+                getResultadoTexto(),
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.red,
+                  color: widget.acertos <= 2 ? Colors.red : Colors.green,
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Mas você pode tentar o Quizz novamente!',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
               Image.asset(
-                'imagens/game_over.png',
+                getImagemTrofeu(),
                 height: 150,
               ),
               const SizedBox(height: 30),
@@ -118,7 +137,11 @@ class _SemacertoState extends State<Semacerto> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // Ação para tentar novamente
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => QuizScreen(),
+                        ),
+                      );
                     },
                     child: const Text('Tentar novamente'),
                   ),
@@ -126,6 +149,7 @@ class _SemacertoState extends State<Semacerto> {
                   ElevatedButton(
                     onPressed: () {
                       // Ação para voltar ao menu
+                      Navigator.of(context).pop();
                     },
                     child: const Text('Voltar ao menu'),
                   ),
@@ -134,6 +158,18 @@ class _SemacertoState extends State<Semacerto> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class QuizScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Implementar a tela do QuizScreen conforme necessário
+      body: Center(
+        child: Text('Tela do Quiz'),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:museu/Cadastro.dart';
+import 'package:museu/componentes/appBar.dart';
 import 'package:museu/home.dart';
 
 
@@ -7,24 +8,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5, left: 20, bottom: 5),
-              child: Image.asset(
-                "imagens/logo.png",
-                width: 115,
-                height: 40.16,
-              ),
-            ),
-            Image.asset("imagens/menu.png")
-          ],
-        ),
-        backgroundColor: const Color(0xFF001540),
-         automaticallyImplyLeading: false,
-      ),
+      appBar: CustomAppBar(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
