@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:museu/home.dart';
+import 'package:museu/quizz.dart';
 
 class Semacerto extends StatefulWidget {
   final int acertos;
@@ -113,7 +115,7 @@ class _SemacertoState extends State<Semacerto> {
                       children: [
                         Text(
                           'Acertos: ${widget.acertos}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.green,
                           ),
@@ -121,7 +123,7 @@ class _SemacertoState extends State<Semacerto> {
                         const SizedBox(width: 20),
                         Text(
                           'Erros: ${widget.erros}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.red,
                           ),
@@ -139,7 +141,7 @@ class _SemacertoState extends State<Semacerto> {
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => QuizScreen(),
+                          builder: (context) => const QuizScreen(),
                         ),
                       );
                     },
@@ -147,9 +149,12 @@ class _SemacertoState extends State<Semacerto> {
                   ),
                   const SizedBox(width: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      // Ação para voltar ao menu
-                      Navigator.of(context).pop();
+                     onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const Home(),
+                        ),
+                      );
                     },
                     child: const Text('Voltar ao menu'),
                   ),
@@ -163,14 +168,3 @@ class _SemacertoState extends State<Semacerto> {
   }
 }
 
-class QuizScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // Implementar a tela do QuizScreen conforme necessário
-      body: Center(
-        child: Text('Tela do Quiz'),
-      ),
-    );
-  }
-}
