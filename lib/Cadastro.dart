@@ -1,29 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:museu/componentes/appBar.dart';
 import 'package:museu/login.dart';
-
+import 'package:museu/servicos/autenticar.dart';
 
 class CadastroScreen extends StatelessWidget {
+  final Autenticar autenticar = Autenticar();
+  final TextEditingController nomeController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController dataNascimentoController = TextEditingController();
+  final TextEditingController sexoController = TextEditingController();
+  final TextEditingController senhaController = TextEditingController();
+  final TextEditingController confirmarSenhaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5, left: 20, bottom: 5),
-              child: Image.asset(
-                "imagens/logo.png",
-                width: 115,
-                height: 40.16,
-              ),
-            ),
-            Image.asset("imagens/menu.png")
-          ],
-        ),
-        backgroundColor: const Color(0xFF001540),
-         automaticallyImplyLeading: false,
-      ),
+      appBar: CustomAppBar(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -56,6 +48,7 @@ class CadastroScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               TextField(
+                controller: nomeController,
                 decoration: InputDecoration(
                   labelText: 'Nome de Usuário:',
                   hintText: 'Digite seu nome de usuário',
@@ -66,6 +59,7 @@ class CadastroScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'E-mail:',
                   hintText: 'Digite seu e-mail',
@@ -79,6 +73,7 @@ class CadastroScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: dataNascimentoController,
                       decoration: InputDecoration(
                         labelText: 'Data de nascimento:',
                         hintText: 'dd/mm/aaaa',
@@ -91,6 +86,7 @@ class CadastroScreen extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
+                      controller: sexoController,
                       decoration: InputDecoration(
                         labelText: 'Sexo:',
                         hintText: 'Sou do sexo...',
@@ -104,6 +100,7 @@ class CadastroScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: senhaController,
                 decoration: InputDecoration(
                   labelText: 'Senha:',
                   hintText: 'Mínimo de 6 caracteres',
@@ -116,6 +113,7 @@ class CadastroScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: confirmarSenhaController,
                 decoration: InputDecoration(
                   labelText: 'Confirme sua Senha:',
                   hintText: 'Mínimo de 6 caracteres',
@@ -131,6 +129,28 @@ class CadastroScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    final String nome = nomeController.text;
+                    final String email = emailController.text;
+                    final String dataNascimento = dataNascimentoController.text;
+                    final String sexo = sexoController.text;
+                    final String senha = senhaController.text;
+                    final String confirmarSenha = confirmarSenhaController.text;
+
+                    if (senha != confirmarSenha) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('As senhas não coincidem'),
+                        ),
+                      );
+                      return;
+                    }
+
+                    autenticar.cadastrarUsuario(
+                      email: email,
+                      senha: senha,
+                      nome: nome,
+                    );
+
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginScreen()),

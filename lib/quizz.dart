@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:museu/TelasRack/SemAcerto.dart';
+import 'package:museu/componentes/appBar.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int? _selectedOptionIndex;
 
   final List<Question> _questions = [
-    Question(
+      Question(
       questionText:
           'Qual o nome dessa Rua do Município de Oriximiná - PA, no ano de 1950?',
       options: [
@@ -123,6 +124,8 @@ class _QuizScreenState extends State<QuizScreen> {
       correctAnswerIndex: 1,
       imagePath: 'imagens/helvecio.png',
     ),
+  
+    
   ];
 
   void _nextQuestion() {
@@ -221,24 +224,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5, left: 20, bottom: 5),
-              child: Image.asset(
-                "imagens/logo.png",
-                width: 115,
-                height: 40.16,
-              ),
-            ),
-            Image.asset("imagens/menu.png")
-          ],
-        ),
-        backgroundColor: const Color(0xFF001540),
-        automaticallyImplyLeading: false,
-      ),
+      appBar:  CustomAppBar(),
       body: Stack(
         children: [
           Image.asset(
@@ -267,6 +253,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         color: Color(0xFF001540),
+                        
                       ),
                     ),
                   ],

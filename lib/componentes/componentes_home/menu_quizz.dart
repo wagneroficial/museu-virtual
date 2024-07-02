@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:museu/quizz.dart';
 import 'package:museu/quizzAbertura.dart';
 
 class Quizz extends StatefulWidget {
