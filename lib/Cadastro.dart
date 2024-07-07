@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:museu/componentes/appBar.dart';
-import 'package:museu/login.dart';
+import 'package:museu/home.dart';
 import 'package:museu/servicos/autenticar.dart';
 
-class CadastroScreen extends StatelessWidget {
+class CadastroScreen extends StatefulWidget {
+  @override
+  _CadastroScreenState createState() => _CadastroScreenState();
+}
+
+class _CadastroScreenState extends State<CadastroScreen> {
   final Autenticar autenticar = Autenticar();
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -11,6 +16,13 @@ class CadastroScreen extends StatelessWidget {
   final TextEditingController sexoController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
   final TextEditingController confirmarSenhaController = TextEditingController();
+  bool _obscureText = true;
+  bool _obscureConfirmText = true;
+
+  void showSnackBar(BuildContext context, String mensagem) {
+    final snackBar = SnackBar(content: Text(mensagem));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +119,18 @@ class CadastroScreen extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  suffixIcon: Icon(Icons.visibility),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
-                obscureText: true,
+                obscureText: _obscureText,
               ),
               const SizedBox(height: 20),
               TextField(
@@ -120,9 +141,18 @@ class CadastroScreen extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  suffixIcon: Icon(Icons.visibility),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureConfirmText ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureConfirmText = !_obscureConfirmText;
+                      });
+                    },
+                  ),
                 ),
-                obscureText: true,
+                obscureText: _obscureConfirmText,
               ),
               const SizedBox(height: 30),
               SizedBox(
@@ -137,11 +167,7 @@ class CadastroScreen extends StatelessWidget {
                     final String confirmarSenha = confirmarSenhaController.text;
 
                     if (senha != confirmarSenha) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('As senhas não coincidem'),
-                        ),
-                      );
+                      showSnackBar(context, 'As senhas não coincidem');
                       return;
                     }
 
@@ -149,16 +175,27 @@ class CadastroScreen extends StatelessWidget {
                       email: email,
                       senha: senha,
                       nome: nome,
-                    );
-
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
+                    ).then((String? erro) {
+                      if (erro == null) {
+                        autenticar.entrarUsuario(email: email, senha: senha).then((String? loginErro) {
+                          if (loginErro == null) {
+                            showSnackBar(context, 'Cadastro e login realizados com sucesso');
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => Home()),
+                            );
+                          } else {
+                            showSnackBar(context, 'Cadastro realizado, mas erro ao fazer login: $loginErro');
+                          }
+                        });
+                      } else {
+                        showSnackBar(context, 'Erro ao cadastrar: $erro');
+                      }
+                    });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFFFA726),
-                    padding: EdgeInsets.symmetric(vertical: 15.0),
+                    backgroundColor: const Color(0xFFFFA726),
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),

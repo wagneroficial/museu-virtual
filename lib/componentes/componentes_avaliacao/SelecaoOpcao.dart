@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-// ESSA PARTE NOS DA DUAS BOLINHAS PARA SELEÇÃO, SIM OU NÃO
 class SelecaoOpcao extends StatefulWidget {
   final Color bolinhaCor;
   final Color numeroCor;
@@ -17,14 +15,14 @@ class SelecaoOpcao extends StatefulWidget {
 }
 
 class _SelecaoOpcaoState extends State<SelecaoOpcao> {
-  bool _dificuldadeUso = true;
+  bool? _dificuldadeUso;
 
-  Widget buildRadioRow(bool value, String text) {
+  Widget buildRadioRow(bool? value, String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Row(
         children: [
-          Radio(
+          Radio<bool?>(
             value: value,
             groupValue: _dificuldadeUso,
             onChanged: (bool? newValue) {

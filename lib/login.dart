@@ -5,11 +5,16 @@ import 'package:museu/home.dart';
 import 'package:museu/redifinirSenha.dart';
 import 'package:museu/servicos/autenticar.dart';
 
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
 
-class LoginScreen extends StatelessWidget {
+class _LoginScreenState extends State<LoginScreen> {
   final Autenticar autenticar = Autenticar();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
+  bool _obscureText = true;
 
   void showSnackBar(BuildContext context, String mensagem) {
     final snackBar = SnackBar(content: Text(mensagem));
@@ -70,11 +75,19 @@ class LoginScreen extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  suffixIcon: Icon(Icons.visibility),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
-                obscureText: true,
+                obscureText: _obscureText,
               ),
-              const SizedBox(height: 10),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -82,6 +95,12 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     final String email = emailController.text;
                     final String senha = senhaController.text;
+
+                    if (email.isEmpty || senha.isEmpty) {
+                      showSnackBar(context, "Por favor, preencha todos os campos.");
+                      return;
+                    }
+
                     autenticar.entrarUsuario(email: email, senha: senha).then((String? erro) {
                       if (erro == null) {
                         showSnackBar(context, "Login com sucesso");
@@ -95,8 +114,8 @@ class LoginScreen extends StatelessWidget {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFFFA726),
-                    padding: EdgeInsets.symmetric(vertical: 15.0),
+                    backgroundColor: const Color(0xFFFFA726),
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),

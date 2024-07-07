@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:museu/avaliacao.dart';
+import 'package:museu/login.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -9,6 +12,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         super(key: key);
 
   void _showMenuModal(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -24,7 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   decoration: BoxDecoration(
                     color: const Color(0xFF001540),
                     borderRadius: BorderRadius.circular(16.0),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         blurRadius: 10.0,
@@ -39,50 +44,65 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     children: [
                       Row(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             radius: 24,
                             backgroundColor: Colors.grey,
                             child: Icon(Icons.person, color: Colors.white),
                           ),
-                          SizedBox(width: 16),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Nome do Usuário',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          const SizedBox(width: 16),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  user?.displayName ?? 'Nome do Usuário',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'emaildousuario@gmail.com',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
+                                Text(
+                                  user?.email ?? 'emaildousuario@gmail.com',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                  ),
+                                  overflow: TextOverflow.visible,
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ListTile(
-                        leading: Icon(Icons.star, color: Colors.white),
-                        title: Text(
+                        leading: const Icon(Icons.star, color: Colors.white),
+                        title: const Text(
                           'Avaliar aplicativo',
                           style: TextStyle(color: Colors.white),
                         ),
                         onTap: () {
-                          // Ação para avaliar o aplicativo
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AvaliacaoScreen()),
+                          );
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.exit_to_app, color: Colors.white),
-                        title: Text('Sair', style: TextStyle(color: Colors.white)),
-                        onTap: () {
-                          // Ação para sair
+                        leading:
+                            const Icon(Icons.exit_to_app, color: Colors.white),
+                        title: const Text('Sair',
+                            style: TextStyle(color: Colors.white)),
+                        onTap: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()),
+                            (Route<dynamic> route) => false,
+                          );
                         },
                       ),
                     ],
@@ -98,6 +118,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+
     return AppBar(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,10 +132,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               height: 40.16,
             ),
           ),
-          GestureDetector(
-            onTap: () => _showMenuModal(context),
-            child: Image.asset("imagens/menu.png"),
-          ),
+          if (user != null)
+            GestureDetector(
+              onTap: () => _showMenuModal(context),
+              child: Image.asset("imagens/menu.png"),
+            ),
         ],
       ),
       backgroundColor: const Color(0xFF001540),
