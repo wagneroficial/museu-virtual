@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//ESSA PARTE É REFERENTE AS 5 BOLINHAS NA HORIZONTAL
 class OpcaoNota5 extends StatefulWidget {
   final double size; // Tamanho das bolinhas e dos números
   const OpcaoNota5({Key? key, this.size = 24.0}) : super(key: key);
@@ -10,7 +9,7 @@ class OpcaoNota5 extends StatefulWidget {
 }
 
 class _OpcaoNota5State extends State<OpcaoNota5> {
-  int _selectedOption = 1;
+  int? _selectedOption; // Inicialize como null para nenhuma opção selecionada
 
   Widget buildRadioRow(int value) {
     return Padding(
@@ -24,8 +23,7 @@ class _OpcaoNota5State extends State<OpcaoNota5> {
             child: Theme(
               data: ThemeData(
                 // Defina a cor da bolinha aqui
-                unselectedWidgetColor:
-                    Colors.grey, // cor quando não selecionado
+                unselectedWidgetColor: Colors.grey, // cor quando não selecionado
               ),
               child: Radio(
                 value: value,

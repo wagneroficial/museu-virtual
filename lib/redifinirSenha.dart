@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:museu/componentes/appBar.dart';
+import 'package:museu/login.dart';
 import 'package:museu/servicos/autenticar.dart';
 
 class RedefinirSenhaScreen extends StatelessWidget {
@@ -61,6 +62,10 @@ class RedefinirSenhaScreen extends StatelessWidget {
                       autenticar.redefinicaoSenha(email: email).then((String? erro) {
                         if (erro == null) {
                           showSnackBar(context, "E-mail de redefinição enviado com sucesso");
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginScreen()),
+                          );
                         } else {
                           showSnackBar(context, "Erro ao enviar e-mail de redefinição: $erro");
                         }
