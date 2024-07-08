@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 
 class OpcaoNota5 extends StatefulWidget {
   final double size; // Tamanho das bolinhas e dos números
-  const OpcaoNota5({Key? key, this.size = 24.0}) : super(key: key);
+  final Function(int) onChanged;
+
+  const OpcaoNota5({Key? key, this.size = 24.0, required this.onChanged}) : super(key: key);
 
   @override
   State<OpcaoNota5> createState() => _OpcaoNota5State();
 }
 
 class _OpcaoNota5State extends State<OpcaoNota5> {
-  int? _selectedOption; // Inicialize como null para nenhuma opção selecionada
+  int? _selectedOption;
+
+  void _onChanged(int value) {
+    setState(() => _selectedOption = value);
+    widget.onChanged(value);
+  }
 
   Widget buildRadioRow(int value) {
     return Padding(
@@ -22,26 +29,23 @@ class _OpcaoNota5State extends State<OpcaoNota5> {
             height: widget.size,
             child: Theme(
               data: ThemeData(
-                // Defina a cor da bolinha aqui
-                unselectedWidgetColor: Colors.grey, // cor quando não selecionado
+                unselectedWidgetColor: Colors.grey,
               ),
               child: Radio(
                 value: value,
                 groupValue: _selectedOption,
                 onChanged: (int? newValue) {
                   if (newValue != null) {
-                    setState(() {
-                      _selectedOption = newValue;
-                    });
+                    _onChanged(newValue);
                   }
                 },
               ),
             ),
           ),
-          const SizedBox(height: 5), // Espaço entre a bolinha e o número
+          const SizedBox(height: 5),
           Text(
             value.toString(),
-            style: TextStyle(fontSize: widget.size * 0.6), // Tamanho do número
+            style: TextStyle(fontSize: widget.size * 0.6),
           ),
         ],
       ),

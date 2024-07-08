@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class SelecaoOpcao extends StatefulWidget {
   final Color bolinhaCor;
   final Color numeroCor;
+  final Function(bool) onChanged;
 
   const SelecaoOpcao({
     Key? key,
     this.bolinhaCor = const Color(0xFF001540),
     this.numeroCor = const Color(0xFF001540),
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class _SelecaoOpcaoState extends State<SelecaoOpcao> {
               if (newValue != null) {
                 setState(() {
                   _dificuldadeUso = newValue;
+                  widget.onChanged(newValue);
                 });
               }
             },
