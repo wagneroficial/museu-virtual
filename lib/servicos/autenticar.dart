@@ -7,7 +7,7 @@ class Autenticar {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: senha);
       print("Conta logada com sucesso!");
-      return null;  // Sucesso
+      return null;  
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "user-not-found":
@@ -33,7 +33,7 @@ class Autenticar {
 
       await userCredential.user!.updateDisplayName(nome);
       print("Usuário cadastrado com sucesso!");
-      return null;  // Sucesso
+      return null;  
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "email-already-in-use":

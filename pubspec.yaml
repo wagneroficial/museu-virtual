@@ -38,6 +38,7 @@ dependencies:
   firebase_auth: ^5.1.0
   hexcolor: ^3.0.1
   cloud_firestore: ^5.0.2
+  fl_chart: ^0.68.0
 
 
 dev_dependencies:
